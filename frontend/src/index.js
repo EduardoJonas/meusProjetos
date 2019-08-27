@@ -5,12 +5,14 @@ import Erro404 from "./componentes/Erro404";
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {Container} from "semantic-ui-react";
+import Home from "./componentes/home";
 
 ReactDOM.render(<BrowserRouter>
     <Container>
         <Switch>
             {/*<Route path="/" exact={true} component={Login} /> */}
-            <Route path="/" exact={true} component={Ranking} />
+            <Route path="/" exact={true} component={Home} />
+            <Route path="/ranking" exact={true} component={Ranking} />
             <Route component={Erro404} />
         </Switch>
     </Container>
