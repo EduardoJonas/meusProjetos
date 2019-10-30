@@ -1,0 +1,14 @@
+body {
+    width: 100%;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /*font-size: 9px;*/
+    background: #FFFF65; /*rgb(249,219,61);*/
+    color: #222;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+}
+
+.prepend-top {
+    margin-top: 20px;
+}

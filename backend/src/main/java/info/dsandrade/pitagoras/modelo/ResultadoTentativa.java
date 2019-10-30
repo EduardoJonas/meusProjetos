@@ -1,17 +1,29 @@
 package info.dsandrade.pitagoras.modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
+@Entity
 public class ResultadoTentativa {
 
-    Usuario usuario;
-    Operacao operacao;
-    int valorTentativa;
+    @Id
+    @GeneratedValue
+    private Long id;
+    @ManyToOne
+    private Usuario usuario;
+    @ManyToOne
+    private Operacao operacao;
+    private int valorTentativa;
+    private boolean correta;
 
     public ResultadoTentativa(Usuario usuario, Operacao operacao, int tentativa) {
         this.usuario = usuario;
         this.operacao = operacao;
         this.valorTentativa = tentativa;
+        this.correta = false;
     }
 
     public ResultadoTentativa() {
@@ -43,5 +55,13 @@ public class ResultadoTentativa {
 
     public int getValorTentativa() {
         return valorTentativa;
+    }
+
+    public boolean isCorreta() {
+        return correta;
+    }
+
+    public void setCorreta(boolean correta) {
+        this.correta = correta;
     }
 }

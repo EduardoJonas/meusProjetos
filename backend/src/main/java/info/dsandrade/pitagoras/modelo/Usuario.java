@@ -1,9 +1,6 @@
 package info.dsandrade.pitagoras.modelo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -17,6 +14,9 @@ public class Usuario {
     private String nick;
 
     private String nome;
+
+    @ManyToOne
+    private Escola escola;
 
     private LocalDate dataNascimento;
 
@@ -50,5 +50,17 @@ public class Usuario {
 
     public Long getPontos() {
         return pontos;
+    }
+
+    public void setPontos(Long pontos) {
+        this.pontos = pontos;
+    }
+
+    public void setEscola(Escola escola) {
+        this.escola = escola;
+    }
+
+    public Escola getEscola() {
+        return escola;
     }
 }

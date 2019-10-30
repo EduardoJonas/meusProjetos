@@ -23,14 +23,14 @@ public class ServicoOperacaoImpl implements ServicoOperacao {
         int fatorA = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
         int fatorB = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
         char op = '+';
-        return new Operacao(fatorA, fatorB, op);
+        return new Operacao(fatorA, fatorB, op, nivel);
     }
 
     public Operacao geraOperacaoSoma(int nivel) {
         int fatorA = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
         int fatorB = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
         char op = '+';
-        return new Operacao(fatorA, fatorB, op);
+        return new Operacao(fatorA, fatorB, op, nivel);
     }
 
     public Operacao geraOperacaoSubtracao(int nivel) {
@@ -42,7 +42,24 @@ public class ServicoOperacaoImpl implements ServicoOperacao {
             fatorA = fatorA - fatorB;
         }
         char op = '-';
-        return new Operacao(fatorA, fatorB, op);
+        return new Operacao(fatorA, fatorB, op, nivel);
+    }
+
+    public Operacao geraOperacaoMultiplicacao(int nivel) {
+        int fatorA = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
+        int fatorB = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
+        char op = '*';
+        return new Operacao(fatorA, fatorB, op, nivel);
+    }
+    public Operacao geraOperacaoDivisao(int nivel) {
+        int fatorA = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
+        int fatorB = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
+        while (fatorB == 0 || fatorA % fatorB != 0) {
+            fatorA = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
+            fatorB = this.geradorNumeroAleatorio.gerarNumeroAleatorio(nivel);
+        }
+        char op = '/';
+        return new Operacao(fatorA, fatorB, op, nivel);
     }
 
     @Override
@@ -51,6 +68,8 @@ public class ServicoOperacaoImpl implements ServicoOperacao {
         switch (operacao.getOperacao()) {
             case '+': return (operacao.getFatorA() + operacao.getFatorB()) == tentativa.getValorTentativa();
             case '-': return (operacao.getFatorA() - operacao.getFatorB()) == tentativa.getValorTentativa();
+            case '*': return (operacao.getFatorA() * operacao.getFatorB()) == tentativa.getValorTentativa();
+            case '/': return (operacao.getFatorA() / operacao.getFatorB()) == tentativa.getValorTentativa();
         }
         new Exception("Operação inválida");
         return  false;
