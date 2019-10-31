@@ -1,5 +1,6 @@
 import React from 'react';
-import {xfetch} from "../util/xfetch";
+import {xfetch, servidor} from "../util/xfetch";
+import $ from 'jquery'
 
 export default class Operacao extends React.Component {
     constructor(props) {
@@ -43,9 +44,37 @@ export default class Operacao extends React.Component {
             .then(dados => this.setState({id: dados.id, fatorA: dados.fatorA, fatorB: dados.fatorB} ));
     }
 
+    handleChange = (e) => {
+        e.preventDefault();
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    enviar = (e) => {
+        e.preventDefault();
+        const {id, resposta} = this.state;
+        const idUsuario = sessionStorage.getItem('idUsuario');
+        $.post(servidor + '/tentativa',
+            {'idUsuario': idUsuario, 'idOperacao': id, 'valorTentativa': resposta, 'tempo': 0},
+            function (res, status) {
+                if (res.correta) {
+                    alert('Você acertou');
+                } else {
+                    alert('Você errou');
+                }
+                let novamente = window.confirm("Deseja jogar novamente?");
+                if (novamente) {
+                    document.location.reload();
+                } else {
+                    window.location = '/principal';
+                }
+
+            }
+        );
+    }
+
     render() {
-        console.log(this.state)
-        const {fatorA, fatorB} = this.state;
+
+        const {fatorA, fatorB, resposta} = this.state;
         let op = this.props.operacao;
         if (op == '/') {
             op = '÷';
@@ -66,7 +95,6 @@ export default class Operacao extends React.Component {
                                 </div>
                                 <div className='col-1'>
                                     <h2 style={{marginTop: '15px'}}>
-                                        {/*{this.props.operacao === '*' ? "x" : this.props.operacao}*/}
                                         {op}
                                     </h2>
                                 </div>
@@ -80,10 +108,13 @@ export default class Operacao extends React.Component {
                                         placeholder="Resultado"
                                         className="form-control"
                                         type="number"
+                                        name="resposta"
+                                        value={resposta}
+                                        onChange={this.handleChange}
                                         pattern="\d*"
                                     />
                                 </div>
-                                <button className="col-12 btn btn-success prepend-top">
+                                <button onClick={this.enviar} className="col-12 btn btn-success prepend-top">
                                     Enviar
                                 </button>
                             </div>
@@ -95,5 +126,4 @@ export default class Operacao extends React.Component {
             </div>
         );
     }
-
 }

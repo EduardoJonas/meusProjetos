@@ -30,6 +30,7 @@ export default class Login extends React.Component {
         $.post(servidor + '/usuarios/login', usuario, function(result, status) {
             if (status == 'success') {
                 sessionStorage.setItem('nick', result.nick)
+                sessionStorage.setItem('idUsuario', result.id)
                 sessionStorage.setItem('escola', result.escola.nome)
                 sessionStorage.setItem('nascimento', result.nascimento)
                 sessionStorage.setItem('nSoma', result.nivelSoma)

@@ -23,7 +23,9 @@ class Home extends React.Component<> {
                         <div className="card">
                             <div className="card-body text-center">
                                 <h5 className="card-title">Somar</h5>
-                                <p className="card-text">Acerte a questão e ganhe 2 pontos.</p>
+                                <p className="card-text">
+                                    Acerte a questão e ganhe {2 * sessionStorage.getItem('nSoma')} pontos.
+                                </p>
                                 <Link to='/soma' className="btn btn-primary">Responder</Link>
                             </div>
                         </div>
@@ -33,7 +35,9 @@ class Home extends React.Component<> {
                         <div className="card">
                             <div className="card-body text-center">
                                 <h5 className="card-title">Diminuir</h5>
-                                <p className="card-text">Acerte a questão e ganhe 2 pontos.</p>
+                                <p className="card-text">
+                                    Acerte a questão e ganhe {2 * sessionStorage.getItem('nSub')} pontos.
+                                </p>
                                 <a href="/subtracao" className="btn btn-primary">Responder</a>
                             </div>
                         </div>
@@ -43,7 +47,9 @@ class Home extends React.Component<> {
                         <div className="card">
                             <div className="card-body text-center">
                                 <h5 className="card-title">Multiplicar</h5>
-                                <p className="card-text">Acerte a questão e ganhe 3 pontos.</p>
+                                <p className="card-text">
+                                    Acerte a questão e ganhe {4 * sessionStorage.getItem('nMulti')} pontos.
+                                </p>
                                 <a href="/multiplicacao" className="btn btn-primary">Responder</a>
                             </div>
                         </div>
@@ -53,7 +59,9 @@ class Home extends React.Component<> {
                         <div className="card">
                             <div className="card-body text-center">
                                 <h5 className="card-title">Dividir</h5>
-                                <p className="card-text">Acerte a questão e ganhe 3 pontos.</p>
+                                <p className="card-text">
+                                    Acerte a questão e ganhe {4 * sessionStorage.getItem('nDiv')} pontos.
+                                </p>
                                 <a href="/divisao" className="btn btn-primary">Responder</a>
                             </div>
                         </div>

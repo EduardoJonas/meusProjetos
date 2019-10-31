@@ -8,6 +8,7 @@ import info.dsandrade.pitagoras.repository.ResultadoTentativaRepository;
 import info.dsandrade.pitagoras.repository.UsuarioRepository;
 import info.dsandrade.pitagoras.servico.ServicoOperacao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 public class TentativaController {
 
     @Autowired
@@ -43,12 +45,40 @@ public class TentativaController {
             if (correta) {
                 Usuario usuario = usuarioOptional.get();
                 Long pontos = usuario.getPontos();
-                pontos += (tempo * operacaoOptional.get().getNivel());
+                pontos += calculaPontos(operacaoOptional.get(), usuario);;
                 usuario.setPontos(pontos);
                 usuarioRepository.save(usuario);
             }
             return tentativa;
         }
         return null;
+    }
+
+    private Long calculaPontos(Operacao operacao, Usuario usuario) {
+        char op = operacao.getOperacao();
+        Long pontosOperacao;
+        int nivelOperacao;
+        switch (op) {
+            case '+':
+                pontosOperacao = 2L;
+                nivelOperacao = usuario.getNivelSoma();
+                break;
+            case '-':
+                pontosOperacao = 2L;
+                nivelOperacao = usuario.getNivelSubtracao();
+                break;
+            case '*':
+                pontosOperacao = 4L;
+                nivelOperacao = usuario.getNivelMultiplicacao();
+                break;
+            case '/':
+                pontosOperacao = 4L;
+                nivelOperacao = usuario.getNivelDivisao();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + op);
+        }
+
+        return pontosOperacao * nivelOperacao;
     }
 }

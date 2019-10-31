@@ -54,6 +54,6 @@ public class OperacaoController {
     }
 
     private void salvaOperacao(Operacao operacao) {
-        //operacaoRepository.save(operacao);
+        operacaoRepository.save(operacao);
     }
 }
