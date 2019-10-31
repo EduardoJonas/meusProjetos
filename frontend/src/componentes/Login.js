@@ -1,17 +1,41 @@
 import React from 'react';
 import {Redirect, Link} from "react-router-dom";
+import $ from 'jquery'
+import mask from 'jquery-mask-plugin'
+import {servidor} from "../util/xfetch";
 
 
 export default class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            nick: '',
+            nascimento: ''
+        }
+    }
 
     entrar = (e) => {
         e.preventDefault();
+        const {nick, nascimento} = this.state;
+        if (!nick || !nascimento) {
+            alert('Insira os dados');
+            return;
+        }
+
         let usuario = {
-            nick: 'dsandrade0',
-            aniversario: '30/07/1989'
+            nick: nick,
+            nascimento: nascimento
         };
-        sessionStorage.setItem('nick', usuario.nick);
-        sessionStorage.setItem('niver', usuario.aniversario);
+
+        $.post(servidor + '/usuarios/login', usuario, function(result, status) {
+            if (status == 'success') {
+                sessionStorage.setItem('nick', result.nick)
+                sessionStorage.setItem('escola', result.escola.nome)
+                sessionStorage.setItem('nascimento', result.nascimento)
+                document.location = '/principal';
+            }
+        });
+
         this.setState({'': ''});
     }
 
@@ -20,7 +44,16 @@ export default class Login extends React.Component {
         //return (<Redirect to='/principal'/>);
     }
 
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    componentDidMount() {
+        $('#idNascimento').mask('99/99/9999');
+    }
+
     render() {
+        const {nick, nascimento} = this.state;
         if (sessionStorage.getItem('nick')) {
             document.location = '/principal';
             //return (<Redirect to='/principal'/>);
@@ -38,11 +71,22 @@ export default class Login extends React.Component {
                     <div className='offset-1 col-10'>
                         <form className='prepend-top'>
                             <div className="form-group">
-                                <input type="email" className="form-control" id="exampleInputEmail1"
-                                       aria-describedby="emailHelp" placeholder="Nick"/>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="nick"
+                                    value={nick}
+                                    onChange={this.handleChange}
+                                    placeholder="Nick"/>
                             </div>
                             <div className="form-group">
-                                <input type="password" className="form-control" id="exampleInputPassword1"
+                                <input type="text"
+                                       pattern="\d*"
+                                       className="form-control"
+                                       id="idNascimento"
+                                       name="nascimento"
+                                       value={nascimento}
+                                       onChange={this.handleChange}
                                        placeholder="Data Nascimento"/>
                             </div>
                             <button className="col-12 btn btn-primary" onClick={this.entrar}>

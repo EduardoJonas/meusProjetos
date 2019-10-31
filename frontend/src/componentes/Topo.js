@@ -27,10 +27,10 @@ export default class Topo extends React.Component<> {
         }
         return (
             <div className="row">
-                <nav class="prepend-top col-12 navbar navbar-expand-lg navbar-light">
-                    <a className="navbar-brand" href="#">
+                <nav className="prepend-top col-12 navbar navbar-expand-lg navbar-light">
+                    <span className="navbar-brand" href="#">
                         <Link to='/principal'>Pitagoras</Link>
-                    </a>
+                    </span>
                     <div className='offset-8 col-4 '>
                         <label> Ola {nick}</label>
                         <span style={{marginRight: '5px'}}/>

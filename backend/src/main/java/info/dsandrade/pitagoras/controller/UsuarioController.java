@@ -28,7 +28,7 @@ public class UsuarioController {
 
     @GetMapping("/ranking")
     public List<Usuario> getRanking() {
-        List<Usuario> usuariosOrdenadoPorPontos = this.usuarioRepository.findByOrderByPontosDesc();
+        List<Usuario> usuariosOrdenadoPorPontos = this.usuarioRepository.findTop10ByOrderByPontosDesc();
         return usuariosOrdenadoPorPontos;
     }
 
@@ -37,9 +37,14 @@ public class UsuarioController {
             @RequestParam("nick") String nick,
             @RequestParam("nascimento") String nascimento) {
 
-        LocalDate dataNascimento = LocalDate.parse(nascimento);
+        String[] partesNascimento = nascimento.split("/");
+        LocalDate dataNascimento =
+            LocalDate.of(
+                Integer.parseInt(partesNascimento[2]),
+                Integer.parseInt(partesNascimento[1]),
+                Integer.parseInt(partesNascimento[0]));
         Optional<Usuario> usuario = usuarioRepository.findByNickAndDataNascimento(nick, dataNascimento);
-        return usuario.get();
+        return usuario.orElseGet(null);
     }
 
     @PostMapping("/novo")
