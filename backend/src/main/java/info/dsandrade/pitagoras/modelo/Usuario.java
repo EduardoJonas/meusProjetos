@@ -1,5 +1,7 @@
 package info.dsandrade.pitagoras.modelo;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -14,6 +16,15 @@ public class Usuario {
     private String nick;
 
     private String nome;
+
+    @ColumnDefault("1")
+    private Integer nivelSoma;
+    @ColumnDefault("1")
+    private Integer nivelSubtracao;
+    @ColumnDefault("1")
+    private Integer nivelMultiplicacao;
+    @ColumnDefault("1")
+    private Integer nivelDivisao;
 
     @ManyToOne
     private Escola escola;
@@ -62,5 +73,53 @@ public class Usuario {
 
     public Escola getEscola() {
         return escola;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Integer getNivelSoma() {
+        return nivelSoma;
+    }
+
+    public void setNivelSoma(Integer nivelSoma) {
+        this.nivelSoma = nivelSoma;
+    }
+
+    public Integer getNivelSubtracao() {
+        return nivelSubtracao;
+    }
+
+    public void setNivelSubtracao(Integer nivelSubtracao) {
+        this.nivelSubtracao = nivelSubtracao;
+    }
+
+    public Integer getNivelMultiplicacao() {
+        return nivelMultiplicacao;
+    }
+
+    public void setNivelMultiplicacao(Integer nivelMultiplicacao) {
+        this.nivelMultiplicacao = nivelMultiplicacao;
+    }
+
+    public Integer getNivelDivisao() {
+        return nivelDivisao;
+    }
+
+    public void setNivelDivisao(Integer nivelDivisao) {
+        this.nivelDivisao = nivelDivisao;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Operacao from "./Operacao";
 
 export default class Subtracao extends React.Component {
 
@@ -6,6 +7,8 @@ export default class Subtracao extends React.Component {
         return (
             <div>
                 Subtracao
+                <hr/>
+                <Operacao operacao={'-'}/>
             </div>
         );
     }

@@ -32,6 +32,11 @@ export default class Login extends React.Component {
                 sessionStorage.setItem('nick', result.nick)
                 sessionStorage.setItem('escola', result.escola.nome)
                 sessionStorage.setItem('nascimento', result.nascimento)
+                sessionStorage.setItem('nSoma', result.nivelSoma)
+                sessionStorage.setItem('nSub', result.nivelSubtracao)
+                sessionStorage.setItem('nMulti', result.nivelMultiplicacao)
+                sessionStorage.setItem('nDiv', result.nivelDivisao)
+
                 document.location = '/principal';
             }
         });

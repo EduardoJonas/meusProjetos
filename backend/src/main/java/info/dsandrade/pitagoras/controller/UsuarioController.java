@@ -3,6 +3,7 @@ package info.dsandrade.pitagoras.controller;
 import info.dsandrade.pitagoras.modelo.Usuario;
 import info.dsandrade.pitagoras.repository.EscolaRepository;
 import info.dsandrade.pitagoras.repository.UsuarioRepository;
+import org.hibernate.NonUniqueObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,11 @@ public class UsuarioController {
         String data,
         Long escola,
         String nick) {
+        Optional<Usuario> teste = usuarioRepository.findByNick(nick);
+        if (teste.isPresent()) {
+            throw new IllegalArgumentException("O nick ja foi utilizado");
+        }
+
         String[] partesData = data.split("/");
         LocalDate dataNascimento =
             LocalDate.of(

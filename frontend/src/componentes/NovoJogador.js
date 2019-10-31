@@ -85,7 +85,7 @@ class NovoJogador extends React.Component<> {
                                 <input type="text" name='nick'
                                        className="form-control"
                                        onChange={this.handleChange}
-                                       value={nick}
+                                       value={nick.toLowerCase()}
                                        placeholder="Nick"/>
                                 <small id="passwordHelpBlock"
                                        className="form-text text-muted">
@@ -107,6 +107,7 @@ class NovoJogador extends React.Component<> {
                                     type="text" className="form-control"
                                     id='idData'
                                     name='data'
+                                    pattern="\d*"
                                     value={data}
                                     placeholder="Data Nascimento"/>
                             </div>
