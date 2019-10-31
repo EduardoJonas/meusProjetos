@@ -3,6 +3,8 @@ import {xfetch, servidor} from "../util/xfetch";
 import $ from 'jquery'
 import {toast, ToastContainer, ToastPosition} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
+import acertoSom from '../audios/acerto.mp3'
+import erroSom from '../audios/erro.wav'
 
 export default class Operacao extends React.Component {
     constructor(props) {
@@ -60,6 +62,8 @@ export default class Operacao extends React.Component {
             {'idUsuario': idUsuario, 'idOperacao': id, 'valorTentativa': resposta, 'tempo': 0},
             function (res, status) {
                 if (res.correta) {
+                    let audio = new Audio(acertoSom);
+                    audio.play();
                     toast("Você acertou 👏🎉🎊", {
                         autoClose: 1400,
                         onClose: that.continuar,
@@ -67,6 +71,8 @@ export default class Operacao extends React.Component {
                     });
                     //that.notify();
                 } else {
+                    let audioErro = new Audio(erroSom);
+                    audioErro.play();
                     toast("Você errou 😔", {
                         autoClose: 1400,
                         onClose: that.continuar,
