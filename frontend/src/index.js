@@ -13,13 +13,13 @@ import Multiplicacao from "./componentes/Multiplicacao";
 import Divisao from "./componentes/Divisao";
 import Login from "./componentes/Login";
 import NovoJogador from "./componentes/NovoJogador"
+import {ToastContainer} from "react-toastify";
 
 ReactDOM.render(
     <BrowserRouter>
         <Container>
             <Topo/>
             <Switch>
-
                 <Route path="/" exact={true} component={Login} />
                 <Route path="/principal" exact={true} component={Home}/>
                 <Route path="/soma" exact={true} component={Soma}/>

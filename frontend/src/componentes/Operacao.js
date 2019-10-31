@@ -1,6 +1,8 @@
 import React from 'react';
 import {xfetch, servidor} from "../util/xfetch";
 import $ from 'jquery'
+import {toast, ToastContainer, ToastPosition} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 export default class Operacao extends React.Component {
     constructor(props) {
@@ -53,27 +55,38 @@ export default class Operacao extends React.Component {
         e.preventDefault();
         const {id, resposta} = this.state;
         const idUsuario = sessionStorage.getItem('idUsuario');
+        let that = this;
         $.post(servidor + '/tentativa',
             {'idUsuario': idUsuario, 'idOperacao': id, 'valorTentativa': resposta, 'tempo': 0},
             function (res, status) {
                 if (res.correta) {
-                    alert('Você acertou');
+                    toast("Você acertou 👏🎉🎊", {
+                        autoClose: 1400,
+                        onClose: that.continuar,
+                        type: toast.TYPE.INFO
+                    });
+                    //that.notify();
                 } else {
-                    alert('Você errou');
+                    toast("Você errou 😔", {
+                        autoClose: 1400,
+                        onClose: that.continuar,
+                        type: toast.TYPE.ERROR
+                    });
                 }
-                let novamente = window.confirm("Deseja jogar novamente?");
-                if (novamente) {
-                    document.location.reload();
-                } else {
-                    window.location = '/principal';
-                }
-
             }
         );
     }
 
-    render() {
+    continuar = () => {
+        let novamente = window.confirm('Deseja jogar novamente?')
+        if (novamente) {
+            document.location.reload();
+        } else {
+            window.location = '/principal';
+        }
+    }
 
+    render() {
         const {fatorA, fatorB, resposta} = this.state;
         let op = this.props.operacao;
         if (op == '/') {
@@ -88,6 +101,7 @@ export default class Operacao extends React.Component {
                 <div className='col-12'>
                     <div className='col-12'>
                         <div className="card">
+                            <ToastContainer className="col-12"/>
                             <div className="card-body row text-center"  style={{paddingBottom: "15px"}}>
                                 <div className='offset-2 col-8'>
                                     <h2 className='col-12'>{fatorA}</h2>
@@ -120,9 +134,7 @@ export default class Operacao extends React.Component {
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         );
     }
