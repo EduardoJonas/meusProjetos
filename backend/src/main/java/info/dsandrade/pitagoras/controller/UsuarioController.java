@@ -44,7 +44,7 @@ public class UsuarioController {
                 Integer.parseInt(partesNascimento[2]),
                 Integer.parseInt(partesNascimento[1]),
                 Integer.parseInt(partesNascimento[0]));
-        Optional<Usuario> usuario = usuarioRepository.findByNickAndDataNascimento(nick, dataNascimento);
+        Optional<Usuario> usuario = usuarioRepository.findByNickAndDataNascimento(nick.trim(), dataNascimento);
         return usuario.orElseGet(null);
     }
 
@@ -68,6 +68,10 @@ public class UsuarioController {
             );
         Usuario usuario = new Usuario(nick, nome, dataNascimento);
         usuario.setPontos(0L);
+        usuario.setNivelSoma(1);
+        usuario.setNivelSubtracao(1);
+        usuario.setNivelMultiplicacao(1);
+        usuario.setNivelDivisao(1);
         usuario.setEscola(escolaRepository.findById(escola).get());
         usuarioRepository.save(usuario);
 

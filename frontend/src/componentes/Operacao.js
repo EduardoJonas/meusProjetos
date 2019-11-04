@@ -53,6 +53,13 @@ export default class Operacao extends React.Component {
         this.setState({[e.target.name]: e.target.value});
     }
 
+    handleSender = (e) => {
+        e.preventDefault();
+        if (e.keyCode == 13) {
+           this.enviar(e);
+        }
+    }
+
     enviar = (e) => {
         e.preventDefault();
         const {id, resposta} = this.state;
@@ -131,6 +138,7 @@ export default class Operacao extends React.Component {
                                         name="resposta"
                                         value={resposta}
                                         onChange={this.handleChange}
+                                        onKeyUp={this.handleSender}
                                         pattern="\d*"
                                     />
                                 </div>

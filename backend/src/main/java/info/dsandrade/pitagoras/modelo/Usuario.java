@@ -31,7 +31,6 @@ public class Usuario {
 
     private LocalDate dataNascimento;
 
-    @Column(columnDefinition = "long default 0")
     private Long pontos;
 
     public Usuario(String nick, String nome, LocalDate dataNascimento) {

@@ -16,7 +16,7 @@ export default class Topo extends React.Component<> {
 
     sair = (e) => {
         e.preventDefault();
-        sessionStorage.removeItem('nick');
+        sessionStorage.clear();
         this.setState({nick: ''});
     }
 

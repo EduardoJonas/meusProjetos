@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import $ from 'jquery'
 import mask from 'jquery-mask-plugin'
 import {servidor} from "../util/xfetch";
