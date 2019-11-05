@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import $ from 'jquery'
 import mask from 'jquery-mask-plugin'
 import {servidor} from "../util/xfetch";
@@ -10,7 +10,8 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             nick: '',
-            nascimento: ''
+            nascimento: '',
+            login: false
         }
     }
 
@@ -27,6 +28,7 @@ export default class Login extends React.Component {
             nascimento: nascimento
         };
 
+        const that = this;
         $.post(servidor + '/usuarios/login', usuario, function(result, status) {
             if (status == 'success') {
                 sessionStorage.setItem('nick', result.nick)
@@ -38,7 +40,8 @@ export default class Login extends React.Component {
                 sessionStorage.setItem('nMulti', result.nivelMultiplicacao)
                 sessionStorage.setItem('nDiv', result.nivelDivisao)
 
-                document.location = '/principal';
+                that.setState({login: true});
+
             }
         });
 
@@ -59,7 +62,11 @@ export default class Login extends React.Component {
     }
 
     render() {
-        const {nick, nascimento} = this.state;
+        const {nick, nascimento, login} = this.state;
+        if (login) {
+            return <Redirect to="/principal"/>;
+        }
+
         if (sessionStorage.getItem('nick')) {
             document.location = '/principal';
             //return (<Redirect to='/principal'/>);

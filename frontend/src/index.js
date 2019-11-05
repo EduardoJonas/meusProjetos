@@ -18,7 +18,6 @@ import {ToastContainer} from "react-toastify";
 ReactDOM.render(
     <BrowserRouter>
         <Container>
-            <Topo/>
             <Switch>
                 <Route path="/" exact={true} component={Login} />
                 <Route path="/principal" exact={true} component={Home}/>
