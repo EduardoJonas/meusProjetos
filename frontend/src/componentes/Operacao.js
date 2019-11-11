@@ -5,6 +5,7 @@ import {toast, ToastContainer, ToastPosition} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 import acertoSom from '../audios/acerto.mp3'
 import erroSom from '../audios/erro.wav'
+import {Redirect} from "react-router-dom";
 
 export default class Operacao extends React.Component {
     constructor(props) {
@@ -13,16 +14,17 @@ export default class Operacao extends React.Component {
             id: '',
             fatorA: '',
             fatorB: '',
-            resposta: ''
+            resposta: '',
+            irParaHome: false,
         };
     }
 
     componentDidMount() {
-        let operacao = this.props.operacao;
-        if (!operacao) {
-            console.lop('Sem operacao');
-        }
+        this.geraOperacao();
+    }
 
+    geraOperacao() {
+        let operacao = this.props.operacao;
         let endPoint = '/operacao';
         let nivel = '';
         switch (operacao) {
@@ -45,7 +47,12 @@ export default class Operacao extends React.Component {
         }
         xfetch(endPoint + '/' + nivel, {}, 'get')
             .then(res => res.json())
-            .then(dados => this.setState({id: dados.id, fatorA: dados.fatorA, fatorB: dados.fatorB} ));
+            .then(dados => this.setState({
+                id: dados.id,
+                fatorA: dados.fatorA,
+                fatorB: dados.fatorB,
+                resposta: ''
+            }));
     }
 
     handleChange = (e) => {
@@ -93,14 +100,24 @@ export default class Operacao extends React.Component {
     continuar = () => {
         let novamente = window.confirm('Deseja jogar novamente?')
         if (novamente) {
-            document.location.reload();
+            this.geraOperacao();
         } else {
-            window.location = '/principal';
+           this.setState({'irParaHome': true});
         }
     }
 
+    descobreOperacao() {
+        switch (this.props.operacao) {
+            case "+": return 'soma';
+            case "-": return 'subtracao';
+            case "*": return 'multiplicacao';
+            case "/": return 'divisa';
+        }
+        return undefined;
+    }
+
     render() {
-        const {fatorA, fatorB, resposta} = this.state;
+        const {fatorA, fatorB, resposta, irParaHome} = this.state;
         let op = this.props.operacao;
         if (op == '/') {
             op = '÷';
@@ -108,6 +125,10 @@ export default class Operacao extends React.Component {
 
         if (op == '*') {
             op = 'x';
+        }
+
+        if (irParaHome) {
+            return <Redirect to={'/principal'}/>
         }
         return (
             <div className='row'>
