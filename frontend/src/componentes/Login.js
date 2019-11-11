@@ -63,6 +63,13 @@ export default class Login extends React.Component {
 
     render() {
         const {nick, nascimento, login} = this.state;
+        const msg = sessionStorage.getItem('msg');
+        if (msg) {
+            alert(msg);
+            sessionStorage.removeItem('msg');
+        }
+
+
         if (login) {
             return <Redirect to="/principal"/>;
         }

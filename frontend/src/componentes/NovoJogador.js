@@ -2,7 +2,6 @@ import React from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import $ from 'jquery'
 import mask from 'jquery-mask-plugin'
-import axios from 'axios';
 import {servidor, xfetch} from "../util/xfetch";
 
 
@@ -16,6 +15,7 @@ class NovoJogador extends React.Component<> {
             data: '',
             escolas: [],
             aguarde: false,
+            irParaLogin: false,
         };
     }
 
@@ -47,12 +47,17 @@ class NovoJogador extends React.Component<> {
         console.log(dados);
         let that = this;
         $.post(servidor + '/usuarios/novo', dados, function(res) {
-            that.setState({nome: '', escola: '', nick: '', data: ''})
+            that.setState({nome: '', escola: '', nick: '', data: '', irParaLogin: true});
+            sessionStorage.setItem('msg', 'Usuário criado com sucesso');
         });
     }
 
     render() {
-        const {nome, escola, nick, data, aguarde, escolas} = this.state;
+        const {nome, escola, nick, data, aguarde, escolas, irParaLogin} = this.state;
+        if (irParaLogin) {
+            return <Redirect to={'/'}/>
+        }
+
         let comboEscolas = escolas.map((v, k) => {
             return <option key={k} value={v.id}> {v.nome} </option>;
         });
