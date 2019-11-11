@@ -16,6 +16,7 @@ export default class Operacao extends React.Component {
             fatorB: '',
             resposta: '',
             irParaHome: false,
+            desligaEnviar: false,
         };
     }
 
@@ -51,7 +52,8 @@ export default class Operacao extends React.Component {
                 id: dados.id,
                 fatorA: dados.fatorA,
                 fatorB: dados.fatorB,
-                resposta: ''
+                resposta: '',
+                desligaEnviar: false,
             }));
     }
 
@@ -62,13 +64,14 @@ export default class Operacao extends React.Component {
 
     handleSender = (e) => {
         e.preventDefault();
-        if (e.keyCode == 13) {
+        if (e.keyCode == 13 && !this.state.desligaEnviar) {
            this.enviar(e);
         }
     }
 
     enviar = (e) => {
         e.preventDefault();
+        this.setState({desligaEnviar: true});
         const {id, resposta} = this.state;
         const idUsuario = sessionStorage.getItem('idUsuario');
         let that = this;
@@ -117,7 +120,7 @@ export default class Operacao extends React.Component {
     }
 
     render() {
-        const {fatorA, fatorB, resposta, irParaHome} = this.state;
+        const {fatorA, fatorB, resposta, irParaHome, desligaEnviar} = this.state;
         let op = this.props.operacao;
         if (op == '/') {
             op = '÷';
@@ -163,7 +166,7 @@ export default class Operacao extends React.Component {
                                         pattern="\d*"
                                     />
                                 </div>
-                                <button onClick={this.enviar} className="col-12 btn btn-success prepend-top">
+                                <button onClick={this.enviar} disabled={desligaEnviar} className="col-12 btn btn-success prepend-top">
                                     Enviar
                                 </button>
                             </div>
