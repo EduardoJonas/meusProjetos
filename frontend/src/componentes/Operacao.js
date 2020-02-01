@@ -75,6 +75,38 @@ export default class Operacao extends React.Component {
         const {id, resposta} = this.state;
         const idUsuario = sessionStorage.getItem('idUsuario');
         let that = this;
+
+        function verificaNivel(res) {
+            const operacao = that.props.operacao;
+            var nivel;
+            switch (operacao) {
+                case '+':
+                    nivel = sessionStorage.getItem('nSoma');
+                    if (res.usuario.nivelSoma !== nivel) {
+                        sessionStorage.setItem('nSoma', res.usuario.nivelSoma);
+                    }
+                    break;
+                case '-':
+                    nivel = sessionStorage.getItem('nSub');
+                    if (res.usuario.nivelSubtracao !== nivel) {
+                        sessionStorage.setItem('nSub', res.usuario.nivelSubtracao);
+                    }
+                    break;
+                case '*':
+                    nivel = sessionStorage.getItem('nMulti');
+                    if (res.usuario.nivelMultiplicacao !== nivel) {
+                        sessionStorage.setItem('nMulti', res.usuario.nivelMultiplicacao);
+                    }
+                    break;
+                case '/':
+                    nivel = sessionStorage.getItem('nDiv');
+                    if (res.usuario.nivelDivisao !== nivel) {
+                        sessionStorage.setItem('nDiv', res.usuario.nivelDivisao);
+                    }
+                    break;
+            }
+        }
+
         $.post(servidor + '/tentativa',
             {'idUsuario': idUsuario, 'idOperacao': id, 'valorTentativa': resposta, 'tempo': 0},
             function (res, status) {
@@ -86,7 +118,7 @@ export default class Operacao extends React.Component {
                         onClose: that.continuar,
                         type: toast.TYPE.INFO
                     });
-                    //that.notify();
+                    verificaNivel(res);
                 } else {
                     let audioErro = new Audio(erroSom);
                     audioErro.play();
