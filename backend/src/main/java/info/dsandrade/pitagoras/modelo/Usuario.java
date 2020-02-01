@@ -1,7 +1,6 @@
 package info.dsandrade.pitagoras.modelo;
 
 import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
