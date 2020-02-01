@@ -1,6 +1,5 @@
 package info.dsandrade.pitagoras.servico;
 
-import info.dsandrade.pitagoras.modelo.Operacao;
 import info.dsandrade.pitagoras.modelo.ResultadoTentativa;
 import info.dsandrade.pitagoras.modelo.Usuario;
 import info.dsandrade.pitagoras.repository.OperacaoRepository;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
