@@ -32,7 +32,7 @@ export default class Topo extends React.Component<> {
                         <Link to='/principal'>Pitagoras</Link>
                     </span>
                     <div className='offset-8 col-4 '>
-                        <label> Ola {nick}</label>
+                        <label> Olá {nick}</label>
                         <span style={{marginRight: '5px'}}/>
                         <button onClick={this.sair}>sair</button>
                     </div>

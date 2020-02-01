@@ -1,9 +1,7 @@
 package info.dsandrade.pitagoras.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +16,9 @@ public class ResultadoTentativa {
     private Operacao operacao;
     private int valorTentativa;
     private boolean correta;
+
+    @Column(columnDefinition = "timestamp default current_timestamp")
+    private LocalTime dataHora;
 
     public ResultadoTentativa(Usuario usuario, Operacao operacao, int tentativa) {
         this.usuario = usuario;
@@ -63,5 +64,9 @@ public class ResultadoTentativa {
 
     public void setCorreta(boolean correta) {
         this.correta = correta;
+    }
+
+    public LocalTime getDataHora() {
+        return dataHora;
     }
 }

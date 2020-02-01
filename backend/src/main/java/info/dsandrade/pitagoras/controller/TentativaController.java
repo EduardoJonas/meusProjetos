@@ -6,16 +6,15 @@ import info.dsandrade.pitagoras.modelo.Usuario;
 import info.dsandrade.pitagoras.repository.OperacaoRepository;
 import info.dsandrade.pitagoras.repository.ResultadoTentativaRepository;
 import info.dsandrade.pitagoras.repository.UsuarioRepository;
+import info.dsandrade.pitagoras.servico.EnquadraNivel;
 import info.dsandrade.pitagoras.servico.ServicoOperacao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 @CrossOrigin("*")
 public class TentativaController {
 
@@ -27,6 +26,8 @@ public class TentativaController {
     private ResultadoTentativaRepository resultadoTentativaRepository;
     @Autowired
     private ServicoOperacao servicoOperacao;
+    @Autowired
+    private EnquadraNivel enquadraNivel;
 
     @PostMapping("/tentativa")
     public ResultadoTentativa getTentativa(
@@ -58,27 +59,37 @@ public class TentativaController {
         char op = operacao.getOperacao();
         Long pontosOperacao;
         int nivelOperacao;
+        int novoNivel;
         switch (op) {
             case '+':
                 pontosOperacao = 2L;
                 nivelOperacao = usuario.getNivelSoma();
+                 novoNivel = enquadraNivel.verificaNivelSoma(usuario);
+                 usuario.setNivelSoma(novoNivel);
                 break;
             case '-':
                 pontosOperacao = 2L;
                 nivelOperacao = usuario.getNivelSubtracao();
+                novoNivel = enquadraNivel.verificaNivelSubtracao(usuario);
+                usuario.setNivelSubtracao(novoNivel);
                 break;
             case '*':
                 pontosOperacao = 4L;
                 nivelOperacao = usuario.getNivelMultiplicacao();
+                novoNivel = enquadraNivel.verificaNivelMultiplicacao(usuario);
+                usuario.setNivelMultiplicacao(novoNivel);
                 break;
             case '/':
                 pontosOperacao = 4L;
                 nivelOperacao = usuario.getNivelDivisao();
+                novoNivel = enquadraNivel.verificaNivelDivisao(usuario);
+                usuario.setNivelDivisao(novoNivel);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + op);
         }
 
+        usuarioRepository.save(usuario);
         return pontosOperacao * nivelOperacao;
     }
 }
