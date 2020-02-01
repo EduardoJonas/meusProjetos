@@ -1,6 +1,5 @@
 package info.dsandrade.pitagoras.modelo;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
