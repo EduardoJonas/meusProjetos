@@ -1,5 +1,6 @@
 package info.dsandrade.pitagoras.modelo;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -120,5 +121,25 @@ public class Usuario {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public int getNivelPorOperacao(char operacao) {
+        switch (operacao) {
+            case '+': return getNivelSoma();
+            case '-': return getNivelSubtracao();
+            case '*': return getNivelMultiplicacao();
+            case '/': return getNivelDivisao();
+            default: throw new IllegalArgumentException("Operação inválida");
+        }
+    }
+
+    public void setNivelOperacao(char operacao, int nivel) {
+        switch (operacao) {
+            case '+':  setNivelSoma(nivel); break;
+            case '-':  setNivelSubtracao(nivel); break;
+            case '*':  setNivelMultiplicacao(nivel); break;
+            case '/':  setNivelDivisao(nivel); break;
+            default: throw new IllegalArgumentException("Operação inválida");
+        }
     }
 }

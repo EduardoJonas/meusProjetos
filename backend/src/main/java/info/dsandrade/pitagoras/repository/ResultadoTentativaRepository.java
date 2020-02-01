@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ResultadoTentativaRepository extends JpaRepository<ResultadoTentativa, Long> {
     List<ResultadoTentativa> findByUsuario(Usuario usuario);
+    List<ResultadoTentativa> findByUsuarioAndCorretaIsTrue(Usuario usuario);
 }

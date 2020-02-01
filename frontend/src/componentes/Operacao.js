@@ -80,18 +80,18 @@ export default class Operacao extends React.Component {
             function (res, status) {
                 if (res.correta) {
                     let audio = new Audio(acertoSom);
-                    //audio.play();
+                    audio.play();
                     toast("Você acertou 👏🎉🎊", {
-                        autoClose: 1400,
+                        autoClose: 1200,
                         onClose: that.continuar,
                         type: toast.TYPE.INFO
                     });
                     //that.notify();
                 } else {
                     let audioErro = new Audio(erroSom);
-                    //audioErro.play();
+                    audioErro.play();
                     toast("Você errou 😔", {
-                        autoClose: 1400,
+                        autoClose: 1200,
                         onClose: that.continuar,
                         type: toast.TYPE.ERROR
                     });

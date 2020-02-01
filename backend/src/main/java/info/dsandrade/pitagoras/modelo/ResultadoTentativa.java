@@ -1,7 +1,7 @@
 package info.dsandrade.pitagoras.modelo;
 
 import javax.persistence.*;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -18,7 +18,7 @@ public class ResultadoTentativa {
     private boolean correta;
 
     @Column(columnDefinition = "timestamp default current_timestamp")
-    private LocalTime dataHora;
+    private LocalDateTime dataHora;
 
     public ResultadoTentativa(Usuario usuario, Operacao operacao, int tentativa) {
         this.usuario = usuario;
@@ -66,7 +66,11 @@ public class ResultadoTentativa {
         this.correta = correta;
     }
 
-    public LocalTime getDataHora() {
+    public LocalDateTime getDataHora() {
         return dataHora;
+    }
+
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 }
