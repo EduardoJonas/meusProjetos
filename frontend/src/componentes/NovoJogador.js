@@ -1,7 +1,6 @@
 import React from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import $ from 'jquery'
-import mask from 'jquery-mask-plugin'
 import {servidor, xfetch} from "../util/xfetch";
 
 
@@ -52,6 +51,16 @@ class NovoJogador extends React.Component<> {
         });
     }
 
+    verificaNick = (e) => {
+        e.preventDefault();
+        const {nick} = this.state;
+        $.get(servidor + '/usuarios/nick', {'nick': nick}, function(data) {
+            if (data === true) {
+                alert('Nick já existente. Escolha outro');
+            }
+        })
+    }
+
     render() {
         const {nome, escola, nick, data, aguarde, escolas, irParaLogin} = this.state;
         if (irParaLogin) {
@@ -94,6 +103,7 @@ class NovoJogador extends React.Component<> {
                                 <input type="text" name='nick'
                                        className="form-control"
                                        onChange={this.handleChange}
+                                       onBlur={this.verificaNick}
                                        value={nick.toLowerCase()}
                                        placeholder="Nick"/>
                                 <small id="passwordHelpBlock"

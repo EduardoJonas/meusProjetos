@@ -74,8 +74,12 @@ public class UsuarioController {
         usuario.setNivelDivisao(1);
         usuario.setEscola(escolaRepository.findById(escola).get());
         usuarioRepository.save(usuario);
+    }
 
-
+    @GetMapping("/nick")
+    public boolean isNickCadastrado(String nick) {
+        Optional<Usuario> usuario = usuarioRepository.findByNick(nick);
+        return usuario.isPresent();
     }
 
 }
