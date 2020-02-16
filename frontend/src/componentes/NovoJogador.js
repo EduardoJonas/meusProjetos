@@ -12,6 +12,7 @@ class NovoJogador extends React.Component<> {
             escola: '',
             nick: '',
             data: '',
+            senha: '',
             escolas: [],
             aguarde: false,
             irParaLogin: false,
@@ -21,6 +22,7 @@ class NovoJogador extends React.Component<> {
     componentWillMount() {
 
     }
+
     componentDidMount() {
         $('#idData').mask('99/99/9999');
         this.setState({aguarde: true});
@@ -62,7 +64,7 @@ class NovoJogador extends React.Component<> {
     }
 
     render() {
-        const {nome, escola, nick, data, aguarde, escolas, irParaLogin} = this.state;
+        const {nome, senha, escola, nick, data, aguarde, escolas, irParaLogin} = this.state;
         if (irParaLogin) {
             return <Redirect to={'/'}/>
         }
@@ -110,6 +112,15 @@ class NovoJogador extends React.Component<> {
                                        className="form-text text-muted">
                                     Ex: {nome.replace(' ', '').toLowerCase()+'0'}
                                 </small>
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    name='senha'
+                                    value={senha}
+                                    onChange={this.handleChange}
+                                    className="form-control"
+                                    placeholder="Senha"/>
                             </div>
                             <div className="form-group">
                                 <select
