@@ -69,7 +69,11 @@ class NovoJogador extends React.Component<> {
             <div className='container'>
                 <div className='row prepend-top text-center'>
                     <div className='col-12'>
-                        <h1>Pitagoras</h1>
+                        <Link to={"/"}>
+                            <h1>
+                                 Pitagoras
+                            </h1>
+                        </Link>
                     </div>
                 </div>
 

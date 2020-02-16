@@ -23,7 +23,7 @@ class Ranking extends React.Component<> {
     render() {
         const {usuarios} = this.state
         let semUsuarios = '';
-        if (usuarios.length == 0) {
+        if (usuarios.length === 0) {
             semUsuarios =
                 <div className="col-12">
                     <h5>Falha no servidor</h5>

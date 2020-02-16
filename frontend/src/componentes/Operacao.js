@@ -1,10 +1,10 @@
 import React from 'react';
-import {xfetch, servidor} from "../util/xfetch";
+import {servidor, xfetch} from "../util/xfetch";
 import $ from 'jquery'
-import {toast, ToastContainer, ToastPosition} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
-import acertoSom from '../audios/acerto.mp3'
-import erroSom from '../audios/erro.wav'
+// import acertoSom from '../audios/acerto.mp3'
+// import erroSom from '../audios/erro.wav'
 import {Redirect} from "react-router-dom";
 
 export default class Operacao extends React.Component {
@@ -45,6 +45,7 @@ export default class Operacao extends React.Component {
                 endPoint += '/divisao';
                 nivel = sessionStorage.getItem('nDiv');
                 break;
+            default: throw new Error("Operação não encontrada");
         }
         xfetch(endPoint + '/' + nivel, {}, 'get')
             .then(res => res.json())
@@ -64,7 +65,7 @@ export default class Operacao extends React.Component {
 
     handleSender = (e) => {
         e.preventDefault();
-        if (e.keyCode == 13 && !this.state.desligaEnviar) {
+        if (e.keyCode === 13 && !this.state.desligaEnviar) {
            this.enviar(e);
         }
     }
@@ -104,6 +105,7 @@ export default class Operacao extends React.Component {
                         sessionStorage.setItem('nDiv', res.usuario.nivelDivisao);
                     }
                     break;
+                default: throw new Error("Operação não encontrada");
             }
         }
 
@@ -111,8 +113,8 @@ export default class Operacao extends React.Component {
             {'idUsuario': idUsuario, 'idOperacao': id, 'valorTentativa': resposta, 'tempo': 0},
             function (res, status) {
                 if (res.correta) {
-                    let audio = new Audio(acertoSom);
-                    audio.play();
+                    // let audio = new Audio(acertoSom);
+                    // audio.play();
                     toast("Você acertou 👏🎉🎊", {
                         autoClose: 1200,
                         onClose: that.continuar,
@@ -120,8 +122,8 @@ export default class Operacao extends React.Component {
                     });
                     verificaNivel(res);
                 } else {
-                    let audioErro = new Audio(erroSom);
-                    audioErro.play();
+                    // let audioErro = new Audio(erroSom);
+                    // audioErro.play();
                     toast("Você errou 😔", {
                         autoClose: 1200,
                         onClose: that.continuar,
@@ -147,6 +149,7 @@ export default class Operacao extends React.Component {
             case "-": return 'subtracao';
             case "*": return 'multiplicacao';
             case "/": return 'divisa';
+            default: throw new Error("Operação não encotrada");
         }
         return undefined;
     }
@@ -154,11 +157,11 @@ export default class Operacao extends React.Component {
     render() {
         const {fatorA, fatorB, resposta, irParaHome, desligaEnviar} = this.state;
         let op = this.props.operacao;
-        if (op == '/') {
+        if (op === '/') {
             op = '÷';
         }
 
-        if (op == '*') {
+        if (op === '*') {
             op = 'x';
         }
 

@@ -1,7 +1,7 @@
 const servidor =
     (process.env.NODE_ENV === 'production')
         ? 'http://pitagoras.dsandrade.info/api'
-        : 'http://192.168.10.109:8080/api';
+        : 'http://localhost:8080/api';
 
 function xfetch(endPoint, dados, metodo) {
 

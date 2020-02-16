@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Ranking from "./Ranking";
 import Topo from "./Topo";
 
@@ -10,7 +10,6 @@ class Home extends React.Component<> {
     }
 
     render() {
-
         return (
             <div>
                 <Topo/>
@@ -44,8 +43,8 @@ class Home extends React.Component<> {
                                         Acerte a questão e
                                         ganhe {2 * sessionStorage.getItem('nSub')} pontos.
                                     </p>
-                                    <a href="/subtracao"
-                                       className="btn btn-primary">Responder</a>
+                                    <Link to="/subtracao"
+                                       className="btn btn-primary">Responder</Link>
                                 </div>
                             </div>
                         </div>
@@ -58,8 +57,8 @@ class Home extends React.Component<> {
                                         Acerte a questão e
                                         ganhe {4 * sessionStorage.getItem('nMulti')} pontos.
                                     </p>
-                                    <a href="/multiplicacao"
-                                       className="btn btn-primary">Responder</a>
+                                    <Link to="/multiplicacao"
+                                       className="btn btn-primary">Responder</Link>
                                 </div>
                             </div>
                         </div>
@@ -72,8 +71,8 @@ class Home extends React.Component<> {
                                         Acerte a questão e
                                         ganhe {4 * sessionStorage.getItem('nDiv')} pontos.
                                     </p>
-                                    <a href="/divisao"
-                                       className="btn btn-primary">Responder</a>
+                                    <Link to="/divisao"
+                                       className="btn btn-primary">Responder</Link>
                                 </div>
                             </div>
                         </div>
